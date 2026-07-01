@@ -10,10 +10,11 @@ public interface HotelService {
     Hotel findById(String name);
     List<Hotel> findAll();
 
-    Hotel CreateHotel(Hotel hotel);
-    List<Hotel> CreateHotelBulk(List<Hotel> hotel);
-    Hotel UpdateHotel(Hotel hotel);
-    Hotel DeleteHotel(String id);
+    Hotel createHotel(Hotel hotel);
+    List<Hotel> createHotelBulk(List<Hotel> hotel);
+    Hotel updateHotel(Hotel hotel);
+    Hotel deleteHotel(String id);
+    List<Hotel> findByIds(List<String> ids);
 
 
 }

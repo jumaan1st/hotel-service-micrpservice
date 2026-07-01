@@ -1,7 +1,7 @@
 package com.microservices.hotelservice.service.impl;
 
 import com.microservices.hotelservice.entity.Hotel;
-import com.microservices.hotelservice.reposetory.HotelRepository;
+import com.microservices.hotelservice.repository.HotelRepository;
 import com.microservices.hotelservice.service.HotelService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,16 +32,16 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public Hotel CreateHotel(Hotel hotel) {
+    public Hotel createHotel(Hotel hotel) {
         validateHotel(hotel);
         validateDuplicateHotel(hotel);
         return hotelRepository.save(hotel);
     }
 
     @Override
-    public List<Hotel> CreateHotelBulk(List<Hotel> hotels) {
+    public List<Hotel> createHotelBulk(List<Hotel> hotels) {
 
-        log.info("HotelServiceImpl :: CreateHotelBulk()");
+        log.info("HotelServiceImpl :: createHotelBulk()");
 
         if (hotels == null || hotels.isEmpty()) {
             throw new IllegalArgumentException("Hotel list cannot be empty");
@@ -83,7 +83,7 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public Hotel UpdateHotel(Hotel hotel) {
+    public Hotel updateHotel(Hotel hotel) {
 
         validateId(hotel.getId());
         validateHotel(hotel);
@@ -102,10 +102,18 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public Hotel DeleteHotel(String id) {
+    public Hotel deleteHotel(String id) {
         Hotel hotel = findById(id);
         hotelRepository.delete(hotel);
         return hotel;
+    }
+
+    @Override
+    public List<Hotel> findByIds(List<String> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return List.of();
+        }
+        return hotelRepository.findAllById(ids);
     }
 
     // ===================== VALIDATIONS =====================

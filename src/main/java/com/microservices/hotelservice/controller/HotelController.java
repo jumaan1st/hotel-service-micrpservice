@@ -17,14 +17,14 @@ public class HotelController {
     private final HotelService hotelService;
 
     @PostMapping("")
-    public ResponseEntity<Hotel> CreateHotel(@RequestBody Hotel hotel) {
-        Hotel responseHotel = hotelService.CreateHotel(hotel);
+    public ResponseEntity<Hotel> createHotel(@RequestBody Hotel hotel) {
+        Hotel responseHotel = hotelService.createHotel(hotel);
         return ResponseEntity.ok().body(responseHotel);
     }
 
     @PostMapping("/bulk")
-    public ResponseEntity<List<Hotel>> CreateHotelBulk(@RequestBody List<Hotel> hotel) {
-        List<Hotel> responseHotel = hotelService.CreateHotelBulk(hotel);
+    public ResponseEntity<List<Hotel>> createHotelBulk(@RequestBody List<Hotel> hotel) {
+        List<Hotel> responseHotel = hotelService.createHotelBulk(hotel);
         return ResponseEntity.ok().body(responseHotel);
     }
 
@@ -34,22 +34,27 @@ public class HotelController {
         return ResponseEntity.ok().body(responseHotel);
     }
 
+    @PostMapping("/hotels-by-ids")
+    public ResponseEntity<List<Hotel>> findByIds(@RequestBody List<String> ids) {
+        List<Hotel> responseHotels = hotelService.findByIds(ids);
+        return ResponseEntity.ok().body(responseHotels);
+    }
 
     @GetMapping("")
     public List<Hotel> findAll() {
-        List<Hotel>hotels = hotelService.findAll();
+        List<Hotel> hotels = hotelService.findAll();
         return hotels;
     }
 
     @PutMapping("")
-    public ResponseEntity<Hotel> UpdateHotel(@RequestBody Hotel hotel) {
-        Hotel responseHotel = hotelService.UpdateHotel(hotel);
+    public ResponseEntity<Hotel> updateHotel(@RequestBody Hotel hotel) {
+        Hotel responseHotel = hotelService.updateHotel(hotel);
         return ResponseEntity.ok().body(responseHotel);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Hotel> DeleteHotel(@RequestBody String id) {
-        Hotel responseHotel = hotelService.DeleteHotel(id);
+    public ResponseEntity<Hotel> deleteHotel(@PathVariable String id) {
+        Hotel responseHotel = hotelService.deleteHotel(id);
         return ResponseEntity.ok().body(responseHotel);
     }
 
